@@ -7,6 +7,8 @@ public class movement : MonoBehaviour
     public float movespeed = 5f;
     public float rotspeed = 1f;
 
+    public float falltime;
+
     Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -32,5 +34,18 @@ public class movement : MonoBehaviour
         {
             transform.Rotate(0, 0, -rotspeed);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        StartCoroutine(Fall());
+        
+    }
+
+    IEnumerator Fall()
+    {
+        rb.gravityScale = 3;
+        yield return new WaitForSeconds(falltime);
+        rb.gravityScale = 0;
     }
 }
